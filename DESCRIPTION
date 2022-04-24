@@ -1,0 +1,15 @@
+Package: realwage
+Type: Package
+Title: Graphs the Real Wage Evolution of a Swedish Worker
+Version: 0.1.0
+Authors@R:
+    person(given = "Jonas",
+           family = "Engström",
+           role = c("aut", "cre"),
+           email = "JonasEngstrom@users.noreply.github.com")
+Description: Given salary data for a person in Sweden, the package
+    calculates and graphs their real wage evolution over time.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
