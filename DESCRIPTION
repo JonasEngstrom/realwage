@@ -9,6 +9,18 @@ Authors@R:
            email = "JonasEngstrom@users.noreply.github.com")
 Description: Given salary data for a person in Sweden, the package
     calculates and graphs their real wage evolution over time.
+Depends:
+    magrittr,
+    rlang
+Imports:
+    dplyr,
+    ggplot2,
+    httr,
+    jsonlite,
+    lubridate,
+    purrr,
+    tidyr,
+    stringr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

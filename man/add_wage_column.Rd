@@ -9,6 +9,8 @@ add_wage_column(cpi_table, wage_table, zero_year, zero_month)
 \arguments{
 \item{cpi_table}{A table made by \code{add_adjustment_column()}.}
 
+\item{wage_table}{A table with columns named \emph{year}, *\emph{month}, and \emph{salary}.}
+
 \item{zero_year}{The year to zero wage on.}
 
 \item{zero_month}{The month to zero wage on.}

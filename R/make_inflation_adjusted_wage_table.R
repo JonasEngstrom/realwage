@@ -1,14 +1,20 @@
 #' Make Inflation Adjusted Wage Table
 #'
-#' Given a tibble of wages, formatted with *year*, *month*, and *salary* columns, the function calculates the inflation adjusted wage for every past salary up to the current day.
+#' Given a tibble of wages, formatted with *year*, *month*, and *salary*
+#' columns, the function calculates the inflation adjusted wage for every past
+#' salary up to the current day.
 #'
-#' @param wage_table A tibble of wages, formatted with *year*, *month*, and *salary* columns.
+#' @param wage_table A tibble of wages, formatted with *date*, and *salary*
+#'   columns. The day component of the dates is set to 1.
 #'
-#' @return A tibble with columns for *year*, *month*, actual *salary* and one inflation adjuted column per past salary.
+#' @return A tibble with columns for *date*, actual *salary* and one inflation
+#'   adjuted column per past salary.
 #' @export
 #' @md
 #'
-#' @import dplyr
+#' @import dplyr lubridate stringr magrittr
+#' @importFrom rlang .data
+#' @importFrom tidyr pivot_longer drop_na
 make_inflation_adjusted_wage_table <- function(wage_table) {
   current_year <- wage_table %>%
     dplyr::slice(1) %>%
@@ -38,5 +44,12 @@ make_inflation_adjusted_wage_table <- function(wage_table) {
   }
 
   adjusted_table %>%
+    dplyr::mutate(date = lubridate::ym(paste(year, month))) %>%
+    dplyr::select(date, .data$salary, starts_with('wage')) %>%
+    tidyr::pivot_longer(!date, names_to = 'series') %>%
+    tidyr::drop_na() %>%
+    dplyr::mutate(adj_date = stringr::str_extract(.data$series, '\\d{4}_\\d{1,2}') %>% lubridate::ym()) %>%
+    dplyr::mutate(across(.data$series, ~ifelse(.data$series == 'salary', 'Actual Salary', paste('Starting', lubridate::month(.data$adj_date, label = TRUE, abbr = FALSE), lubridate::year(.data$adj_date))))) %>%
+    dplyr::select(!.data$adj_date) %>%
     return()
 }

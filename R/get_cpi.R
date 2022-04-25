@@ -11,7 +11,10 @@
 #' @export
 #' @md
 #'
-#' @import httr magrittr jsonlite purrr tidyr dplyr
+#' @import httr magrittr jsonlite dplyr
+#' @importFrom rlang .data
+#' @importFrom purrr pluck
+#' @importFrom tidyr unnest separate
 #'
 #' @examples
 #' cpi_data <- get_cpi()
@@ -24,9 +27,9 @@ get_cpi <- function() {
     jsonlite::fromJSON() %>%
     purrr::pluck('data') %>%
     tidyr::unnest(cols = dplyr::everything()) %>%
-    tidyr::separate(key, c('year', 'month'), 'M') %>%
+    tidyr::separate(.data$key, c('year', 'month'), 'M') %>%
     dplyr::mutate(dplyr::across(c(year, month), as.integer)) %>%
-    dplyr::mutate(dplyr::across(values, as.double)) %>%
-    dplyr::rename(value = values) %>%
+    dplyr::mutate(dplyr::across(.data$values, as.double)) %>%
+    dplyr::rename(value = .data$values) %>%
     return()
 }

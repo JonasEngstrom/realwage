@@ -10,13 +10,14 @@
 #' @export
 #' @md
 #'
-#' @import dplyr
+#' @import dplyr magrittr
+#' @importFrom rlang .data
 #'
 #' @seealso [realwage::get_cpi()]
 get_index_value <- function(cpi_table, index_year, index_month) {
   cpi_table %>%
     dplyr::filter(year == index_year & month == index_month) %>%
-    dplyr::select(value) %>%
+    dplyr::select(.data$value) %>%
     dplyr::pull() %>%
     return()
 }

@@ -13,9 +13,10 @@
 #'
 #' @seealso [realwage::get_cpi()]
 #'
-#' @import dplyr
+#' @import dplyr magrittr
+#' @importFrom rlang :=
 add_adjustment_column <- function(cpi_table, zero_year, zero_month) {
   cpi_table %>%
-    dplyr::mutate(!!paste('pct', zero_year, zero_month, sep = '_') := percentual_change(get_index_value(cpi_table, zero_year, zero_month), value)) %>%
+    dplyr::mutate(!!paste('pct', zero_year, zero_month, sep = '_') := percentual_change(get_index_value(cpi_table, zero_year, zero_month), .data$value)) %>%
     return()
 }

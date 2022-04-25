@@ -7,11 +7,15 @@
 make_inflation_adjusted_wage_table(wage_table)
 }
 \arguments{
-\item{wage_table}{A tibble of wages, formatted with \emph{year}, \emph{month}, and \emph{salary} columns.}
+\item{wage_table}{A tibble of wages, formatted with \emph{date}, and \emph{salary}
+columns. The day component of the dates is set to 1.}
 }
 \value{
-A tibble with columns for \emph{year}, \emph{month}, actual \emph{salary} and one inflation adjuted column per past salary.
+A tibble with columns for \emph{date}, actual \emph{salary} and one inflation
+adjuted column per past salary.
 }
 \description{
-Given a tibble of wages, formatted with \emph{year}, \emph{month}, and \emph{salary} columns, the function calculates the inflation adjusted wage for every past salary up to the current day.
+Given a tibble of wages, formatted with \emph{year}, \emph{month}, and \emph{salary}
+columns, the function calculates the inflation adjusted wage for every past
+salary up to the current day.
 }

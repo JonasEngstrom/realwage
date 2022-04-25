@@ -19,7 +19,7 @@
 #'
 #' @seealso [realwage::get_cpi()]
 #'
-#' @import dplyr
+#' @import dplyr magrittr
 adjust_for_inflation <- function(wage_table, cpi_table) {
   for (i in 1:nrow(wage_table)) {
 

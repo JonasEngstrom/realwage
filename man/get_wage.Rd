@@ -7,11 +7,11 @@
 get_wage(wage_table, index_year, index_month)
 }
 \arguments{
+\item{wage_table}{A table with columns named \emph{year}, *\emph{month}, and \emph{salary}.}
+
 \item{index_year}{The year to extract the salary for.}
 
 \item{index_month}{The month to extract the salary for.}
-
-\item{cpi_table}{A table with columns named \emph{year}, *\emph{month}, and \emph{salary}.}
 }
 \value{
 A salary.
