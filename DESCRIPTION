@@ -7,7 +7,7 @@ Authors@R:
            family = "Engström",
            role = c("aut", "cre"),
            email = "JonasEngstrom@users.noreply.github.com")
-Description: Given salary data for a person in Sweden, the package
+Description: Given salary data for a person in Sweden, realwage
     calculates and graphs their real wage evolution over time.
 Depends:
     magrittr,
@@ -28,5 +28,7 @@ LazyData: true
 RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
