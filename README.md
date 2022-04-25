@@ -37,7 +37,9 @@ library(tibble)
 The tibble needs to have *year*, *month*, and *salary* columns.
 
 ```r
-wage_table <- tibble(year = c(2020, 2021, 2022), month = c(3, 3, 3), salary = c(30000, 30250, 31000))
+wage_table <- tibble(year = c(2020, 2021, 2022),
+                     month = c(3, 3, 3),
+                     salary = c(30000, 30250, 31000))
 ```
 
 ### 3. Plot Inflation Adjusted Salary
