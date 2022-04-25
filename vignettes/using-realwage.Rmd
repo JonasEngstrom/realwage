@@ -1,0 +1,95 @@
+---
+title: "Using Realwage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using Realwage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6,
+  fig.height = 4
+)
+```
+
+```{r setup}
+library(realwage)
+```
+
+This short vignette aims to provide some inspiration around possible uses for the `realwage` package. I hope you find it useful.
+
+## Getting Started
+
+The simplest possible way to use `realwage` is to create a tibble of past salaries with *year*, *month*, and *salary* columns and then use that tibble to make a ggplot showing the salaries adjusted for inflation. This can be done with the following two commands. It assumes both the `realwage` and `tibble` packages are installed and that the `realwage` package is loaded.
+
+```{r}
+wage_table <- tibble::tibble(year = c(2020, 2021, 2022),
+                             month = c(3, 3, 3),
+                             salary = c(30000, 30250, 31000))
+print(wage_table)
+```
+
+```{r}
+calculate_and_plot_adjusted_salary(wage_table)
+```
+
+## Changing Date Range
+
+If you only want to plot values for a particular range of dates `calculate_and_plot_adjusted_salary()` accepts `start_date` and `end_date` parameters in ISO format (i.e. yyyy-mm-dd).
+
+```{r}
+calculate_and_plot_adjusted_salary(wage_table, end_date = '2021-10-01')
+```
+
+## Making Other Changes to Graph
+
+The ggplot object returned by `calculate_and_plot_adjusted_salary()` can be saved and modified as any ggplot.
+
+```{r}
+wage_plot <- calculate_and_plot_adjusted_salary(wage_table)
+
+wage_plot +
+  ggplot2::ggtitle('My Salary Over the Years')
+```
+
+## Working Directly with the Underlying Data
+
+To download and work directly with the data, before plotting it, use `make_inflation_adjusted_wage_table()`. The data is in tidy format and can then be processed with all the usual tidyverse tools.
+
+```{r}
+inflation_data <- make_inflation_adjusted_wage_table(wage_table)
+print(inflation_data)
+```
+
+If you, for example, want to remove all but one inflation calculation, this can be accomplished using `dplyr`.
+
+```{r}
+inflation_data <- dplyr::filter(inflation_data,
+                                series %in% c('Starting March 2020', 'Actual Salary'))
+```
+
+This data can of course be used however you want, e.g. to make your own plots using `ggplot2`, but if you want to make a plot similar to the ones above you can use `plot_adjusted_wages()`.
+
+```{r}
+plot_adjusted_wages(inflation_data)
+```
+
+To make the data more human readable, it can be pivoted using `tidyr`.
+
+```{r}
+tidyr::pivot_wider(inflation_data, names_from = series)
+```
+
+## Downloading Consumer Price Index
+
+You can use `get_cpi()` to download [Consumer Price Index data from Statistics Sweden](http://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__PR__PR0101__PR0101A/KPIFastM2) to use for your own calculations.
+
+```{r}
+get_cpi()
+```
+
+Note that they have many other datasets, including CPI data going back to the 19th century. The dataset used in the `realwage` package only goes back to 2006, but was chosen as it provides consistently formatted monthly figures.
