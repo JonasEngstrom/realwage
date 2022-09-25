@@ -18,7 +18,7 @@ library(devtools)
 ```r
 install_github('JonasEngstrom/realwage', build_vignettes = TRUE)
 ```
-### 4. Load *medinetparser*
+### 4. Load *realwage*
 ```r
 library(realwage)
 ```
