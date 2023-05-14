@@ -19,13 +19,14 @@
 #' @examples
 #' cpi_data <- get_cpi()
 get_cpi <- function() {
-  url = 'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/PR/PR0101/PR0101A/KPIFastM2'
+  url = 'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/PR/PR0101/PR0101A/KPItotM'
   query = '{ "query": [], "response": { "format": "json" } }'
 
   httr::POST(url, body = query) %>%
     httr::content(as = 'text') %>%
     jsonlite::fromJSON() %>%
     purrr::pluck('data') %>%
+    dplyr::mutate(values = purrr::map_vec(values, first)) %>%
     tidyr::unnest(cols = dplyr::everything()) %>%
     tidyr::separate(.data$key, c('year', 'month'), 'M') %>%
     dplyr::mutate(dplyr::across(c(year, month), as.integer)) %>%
