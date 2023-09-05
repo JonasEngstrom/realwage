@@ -20,8 +20,7 @@ Imports:
     lubridate,
     purrr,
     tidyr,
-    stringr,
-    tibble
+    stringr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -29,6 +28,7 @@ RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
     knitr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tibble
 VignetteBuilder: knitr
 Config/testthat/edition: 3

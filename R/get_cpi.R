@@ -19,6 +19,9 @@
 #' @examples
 #' cpi_data <- get_cpi()
 get_cpi <- function() {
+  NULL ->
+    values
+
   url = 'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/PR/PR0101/PR0101A/KPItotM'
   query = '{ "query": [], "response": { "format": "json" } }'
 
